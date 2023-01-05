@@ -1,17 +1,18 @@
 #
 # Conditional build:
-%bcond_without	tests	# unit tests
+%bcond_without	tests		# unit tests
+%bcond_without	system_zopfli	# system zopfli libraries
 
 Summary:	Zopfli module for Python
 Summary(pl.UTF-8):	Moduł zopfli dla Pythona
 Name:		python3-zopfli
-Version:	0.2.1
+Version:	0.2.2
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/zopfli/
 Source0:	https://files.pythonhosted.org/packages/source/z/zopfli/zopfli-%{version}.zip
-# Source0-md5:	505ea595d86b8a7fec55620c839a4859
+# Source0-md5:	0c1e41e5403524e0180f3ed9aaa356ec
 URL:		https://pypi.org/project/zopfli/
 BuildRequires:	python3-modules >= 1:3.7
 BuildRequires:	python3-setuptools
@@ -22,6 +23,10 @@ BuildRequires:	python3-pytest
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	unzip
+%if %{with system_zopfli}
+BuildRequires:	zopfli-devel
+BuildRequires:	zopfli-png-devel
+%endif
 Requires:	python3-modules >= 1:3.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,6 +42,10 @@ zopfli.
 %setup -q -n zopfli-%{version}
 
 %build
+%if %{with system_zopfli}
+export USE_SYSTEM_ZOPFLI=1
+%endif
+
 %py3_build
 
 %if %{with tests}
@@ -47,6 +56,10 @@ PYTHONPATH=$(echo $(pwd)/build-3/lib.*) \
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+%if %{with system_zopfli}
+export USE_SYSTEM_ZOPFLI=1
+%endif
 
 %py3_install
 
