@@ -7,7 +7,7 @@ Summary:	Zopfli module for Python
 Summary(pl.UTF-8):	Moduł zopfli dla Pythona
 Name:		python3-zopfli
 Version:	0.2.2
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/zopfli/
