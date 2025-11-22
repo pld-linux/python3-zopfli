@@ -6,15 +6,15 @@
 Summary:	Zopfli module for Python
 Summary(pl.UTF-8):	Moduł zopfli dla Pythona
 Name:		python3-zopfli
-Version:	0.2.2
-Release:	3
+Version:	0.4.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/zopfli/
-Source0:	https://files.pythonhosted.org/packages/source/z/zopfli/zopfli-%{version}.zip
-# Source0-md5:	0c1e41e5403524e0180f3ed9aaa356ec
+Source0:	https://files.pythonhosted.org/packages/source/z/zopfli/zopfli-%{version}.tar.gz
+# Source0-md5:	c744c18043764ab6aa82443cee243038
 URL:		https://pypi.org/project/zopfli/
-BuildRequires:	python3-modules >= 1:3.7
+BuildRequires:	python3-modules >= 1:3.10
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-setuptools_scm
 %if %{with tests}
@@ -22,12 +22,11 @@ BuildRequires:	python3-pytest
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-BuildRequires:	unzip
 %if %{with system_zopfli}
 BuildRequires:	zopfli-devel
 BuildRequires:	zopfli-png-devel
 %endif
-Requires:	python3-modules >= 1:3.7
+Requires:	python3-modules >= 1:3.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -70,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README.rst
 %dir %{py3_sitedir}/zopfli
-%attr(755,root,root) %{py3_sitedir}/zopfli/zopfli.cpython-*.so
+%attr(755,root,root) %{py3_sitedir}/zopfli/zopfli.abi3.so
 %{py3_sitedir}/zopfli/*.py
 %{py3_sitedir}/zopfli/__pycache__
 %{py3_sitedir}/zopfli-%{version}-py*.egg-info
